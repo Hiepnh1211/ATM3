@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Withdrawal report</title>
+<title>Deposit report</title>
 </head>
  <%= Constants.TABLE_STYLE %>
 <body>
@@ -18,13 +18,15 @@
 		AdminServices adminServices = new AdminServices();
 	%>
 
-	Withdrawal report
+	Deposit report
 	<% out.print(Constants.DATE_PICKER); %>
-	<form action="DepositReport.jsp" method="post">
+	<form action="DepositReport" method="post">
 		<label for="datepicker">Select Date:</label>
-		<input type="text" id="datepicker" name="date">
+		<input type="text" id="datepicker" name="date" value=<%= session.getAttribute("date")%>>
 		<button type="submit">Submit</button>
+		<input type="button" onclick="location.href='AdminMenu.jsp';" value="Back">
 	</form>
+	<br>
 	<table>
 			<tr>
 				<th>Name</th>
@@ -34,17 +36,12 @@
 			</tr>
 	
 	<%
-		out.print(utils.toAdminMenu()); 
-		if(request.getMethod().equalsIgnoreCase("post")){
-			
-			if(request.getParameter("date") != null){
-				String date = request.getParameter("date"); 
-				String[] pickedDate = date.split("/");
-				Date checkDate = Date.valueOf(LocalDate.of(Integer.valueOf(pickedDate[2]), Integer.valueOf(pickedDate[0]), Integer.valueOf(pickedDate[1])));
-				List<Transaction>withdrawalRecord = adminServices.depositReport(checkDate);
-				
-				for(Transaction transaction : withdrawalRecord){			
-				
+		String result = (String)session.getAttribute("Empty");
+		if(result == null){
+			List<Transaction> depositRecord = (List<Transaction>)session.getAttribute("Deposit");
+			if(depositRecord != null){
+				for(Transaction transaction : depositRecord){
+							
 	%>
 		
 			<tr>
@@ -57,6 +54,8 @@
 	<%
 				}
 			}
+		}else{
+			out.print(result);
 		}
 	%>
 	</table>

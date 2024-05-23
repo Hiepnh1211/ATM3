@@ -3,6 +3,7 @@ package Services;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Random;
 
 import Database.Connector;
 import Models.Transaction;
+import Models.Transfer;
 import Models.User;
 
 public class AdminServices {
@@ -108,20 +110,28 @@ public class AdminServices {
 		return depositList;
 	}
 	
-	public List<Transaction> transferReport(Date checkDate) throws SQLException {
-		List<Transaction> transferList = new ArrayList<>();
+	public List<Transfer> transferReport(Date checkDate) throws SQLException {
+		List<Transfer> transferList = new ArrayList<>();
 		
-		String getTransfers = "SELECT transaction_info.transaction_id, transaction_info.id_number, transaction_info.transaction_date, transaction_info.amount, transaction_info.balance, transaction_info.transaction_type, transfer.receiver_id, transfer.receiver_balance\r\n"
-				+ "FROM transaction_info \r\n"
-				+ "INNER JOIN transfer \r\n"
-				+ "ON transaction_info.transaction_id = transfer.transfer_id \r\n"
-				+ "WHERE DATE(transaction_date)= ?;";
+		String getTransfers = "SELECT sender.transaction_id, sender.transaction_date, sender.id_number, sender.balance, sender.amount, receiver.id_number, receiver.balance\r\n"
+				+ "FROM transaction_info as sender\r\n"
+				+ "INNER JOIN transaction_info as receiver\r\n"
+				+ "ON sender.transaction_id = receiver.transaction_id and sender.transaction_type LIKE 'Transfer' and receiver.transaction_type LIKE 'Transferred'\r\n"
+				+ "AND DATE(sender.transaction_date)= ?;";
 		PreparedStatement getTransferStatement = connector.getConnection().prepareStatement(getTransfers);
 		getTransferStatement.setDate(1, (java.sql.Date) checkDate);
 		ResultSet resultSet = getTransferStatement.executeQuery();
 		
 		while(resultSet.next()) {
-			transferList.add(new Transaction());
+			transferList.add(new Transfer(
+					resultSet.getString(1), 
+					resultSet.getString(3), 
+					resultSet.getTimestamp(2).toLocalDateTime(), 
+					resultSet.getDouble(5), 
+					resultSet.getDouble(4), 
+					Constants.FUNCTION_TRANSFER_MONEY, 
+					resultSet.getString(6), 
+					resultSet.getDouble(7)));
 		}
 		return transferList;
 	}

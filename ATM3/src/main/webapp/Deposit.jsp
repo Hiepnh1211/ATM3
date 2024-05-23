@@ -22,20 +22,20 @@
 	Balance: <div id="balance"></div>
 		<form action="Deposit" method="post">
    			<table style="with: 100%">
-    		<tr>
-     		<td>Amount</td>
-     		<td><input type="text" step="0.01" name="amount" value = 0></td>
-    		</tr>
-    		<tr>
-   		</table>
-   		<input type="submit" value="Deposit" />
+    			<tr>
+     			<td>Amount</td>
+     			<td><input type="text" step="0.01" name="amount" value = 0></td>
+    			</tr>
+    			<tr>
+   			</table>
+   			<input type="submit" value="Deposit" />
+   			<input type="button" onclick="location.href='UserMenu.jsp';" value="Back">
    		</form>
-   		
    		<%
-			out.print(utils.toMenu());
    			String result = (String) session.getAttribute("depositResult");
         	if (result != null) {
         			out.println(result);
+        			session.removeAttribute("depositResult");
         	}
    		%>
    		<script>

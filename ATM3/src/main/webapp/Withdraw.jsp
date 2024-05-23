@@ -29,10 +29,10 @@
     		<tr>
    		</table>
    		<input type="submit" value="Withdraw" />
+   		<input type="button" onclick="location.href='UserMenu.jsp';" value="Back">
    		</form>
    		
    		<%
-   			out.print(utils.toMenu());
    			String result = (String) session.getAttribute("withdrawResult");
     		if (result != null) {
     			out.println(result);

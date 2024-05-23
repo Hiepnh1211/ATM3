@@ -2,7 +2,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.User, Models.Transaction"%>
+    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.User, Models.Transfer"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,12 +19,13 @@
 	
 	Transfer report
 	<%= Constants.DATE_PICKER %>
-	<form action="TransferReport.jsp" method="post">
+	<form action="TransferReport" method="post">
 		<label for="datepicker">Select Date:</label>
-		<input type="text" id="datepicker" name="date">
+		<input type="text" id="datepicker" name="date" value=<%= session.getAttribute("date") %>>
 		<button type="submit">Submit</button>
+		<input type="button" onclick="location.href='AdminMenu.jsp';" value="Back">
 	</form>
-	
+	<br>
 	<table>
 		<tr>
 			<th>Sender Name</th>
@@ -37,30 +38,31 @@
 		</tr>
 		
 	<%
-		out.print(utils.toAdminMenu()); 
-		if(request.getMethod().equalsIgnoreCase("post")){
-			
-			if(request.getParameter("date") != null){
-				String date = request.getParameter("date"); 
-				String[] pickedDate = date.split("/");
-				Date checkDate = Date.valueOf(LocalDate.of(Integer.valueOf(pickedDate[2]), Integer.valueOf(pickedDate[0]), Integer.valueOf(pickedDate[1])));
-				List<Transaction> transferRecord = adminServices.transferReport(checkDate);
-				
-				for(Transaction transfer : transferRecord){			
-				
+		String result = (String)session.getAttribute("Empty");
+		if(result == null){
+			List<Transfer> transferRecord = (List<Transfer>)session.getAttribute("Transfer");
+			if(transferRecord != null){
+				for(Transfer transfer : transferRecord){
+							
 	%>
 			<tr>
 				<td><%= utils.getUserById(transfer.getIdNumber()).getName() %></td>
 				<td><%= transfer.getIdNumber() %></td>
 				<td><%= transfer.getBalance() %></td>
 				<td><%= transfer.getAmount() %></td>
+				<td><%= utils.getUserById(transfer.getReceiverID()).getName() %></td>
+				<td><%= transfer.getReceiverID() %></td>
+				<td><%= transfer.getReceiverBalance() %></td>
 			</tr>
 	<%
 				}
 			}
+		}else{
+			out.print(result);
 		}
 	%>
 	</table>
 	</div>
+
 </body>
 </html>

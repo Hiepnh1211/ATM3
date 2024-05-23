@@ -34,11 +34,11 @@
 	</form>
 	
 	<% 
-		out.print(utils.toMenu());
 		String result = (String) session.getAttribute("passwordChangeResult");
     	if (result != null) {
         	out.println(result);
     	}
 	%>
+	<button onclick="location.href='UserMenu.jsp';">Back</button>	
 </body>
 </html>

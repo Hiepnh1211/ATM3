@@ -41,7 +41,7 @@ public class Withdraw extends HttpServlet{
 	  					response.sendRedirect(request.getContextPath() + "/Withdraw.jsp");
 	  					
 	  				}else if(Double.parseDouble(amount) > user.getBalance()) {
-	  					session.setAttribute("result","<p style='color:red;'>Unable to deposit</p>");
+	  					session.setAttribute("withdrawResult","<p style='color:red;'>Not enough balance to withdraw</p>");
 	  					response.sendRedirect(request.getContextPath() + "/Withdraw.jsp");
 	  				}else {
 	  					

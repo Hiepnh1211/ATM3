@@ -32,7 +32,7 @@ public class UserServices {
 	
 	public boolean checkTransactionLimit(String userId, String transactionType) throws SQLException {
 		String checkTransactionLimit = "SELECT COUNT(transaction_id) FROM atm.transaction_info "
-				+ "WHERE transaction_date = (SELECT CURRENT_DATE()) "
+				+ "WHERE DATE(transaction_date) = (SELECT CURRENT_DATE()) "
 				+ "AND id_number = ? "
 				+ "AND transaction_type = ?" ;
 		

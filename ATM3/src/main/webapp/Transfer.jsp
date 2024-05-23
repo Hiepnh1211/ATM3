@@ -28,10 +28,10 @@
      		</tr>
      		</table>
      		<input type="submit" value="Transfer">
+     		<input type="button" onclick="location.href='UserMenu.jsp';" value="Back">
 		</form>
 		
 		<%
-			out.print(utils.toMenu());
 			String result = (String) session.getAttribute("transferResult");
         	if (result != null) {
             	out.println(result);

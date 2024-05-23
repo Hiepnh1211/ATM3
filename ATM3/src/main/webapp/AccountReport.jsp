@@ -25,7 +25,6 @@
 			</tr>
 			
 			<% 
-				out.print(utils.toAdminMenu());
 					List<User> userList = adminServices.accountReport();
 					for(User user : userList){
 						
@@ -42,6 +41,7 @@
 					}
 			%>
 		</table>
+		<input type="button" onclick="location.href='AdminMenu.jsp';" value="Back">
 	</div>
 </body>
 </html>

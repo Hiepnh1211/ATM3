@@ -42,7 +42,8 @@ public class ChangePassword extends HttpServlet{
 					
 				}else{
 					userServices.changePassword(user, oldPassword, newPassword, confirmNewPassword);
-					session.setAttribute("result", "<p style='color:red;'>Your password has been change</p>");
+					session.removeAttribute("user");
+					session.setAttribute("result", "<p style='color:green;'>Your password has been changed</p>");
 					response.sendRedirect(request.getContextPath() + "/IdCheck.jsp");
 				}
 			}else{

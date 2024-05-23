@@ -7,14 +7,14 @@
 <title>Create user</title>
 </head>
 <body>
-	<div align="center">
+	<div align="left">
 	<% 
 		Utilities utils = new Utilities();
 		AdminServices adminServices = new AdminServices();
 	%>
 		Create user
-		<form action="CreateUser.jsp" method="post">
-			<table style="width: 100%">
+		<form action="CreateUser" method="post">
+			<table>
 				<tr>
 					<td>Name:</td>
 					<td><input type="text" name="name"></td>
@@ -36,23 +36,15 @@
 				</tr>
 				<tr>
 					<td><input type="submit" value="Create"></td>
+					<td><input type="button" onclick="location.href='AdminMenu.jsp';" value="Back"></td>
 				</tr>
 			</table>
 		</form>
-		<%=utils.toAdminMenu()%>
 		<%
-			if(request.getMethod().equalsIgnoreCase("post")){
-				if(request.getParameter("name") != null && request.getParameter("contactNumber")!= null && request.getParameter("address")!= null){
-					String name = request.getParameter("name");
-					String gender = request.getParameter("gender");
-					String contactNumber = request.getParameter("contactNumber");
-					String address = request.getParameter("address");
-					
-					if(utils.checkName(name) && utils.checkContactNumber(contactNumber)){
-						User newUser = adminServices.createAccount(name, contactNumber, gender, address);
-						
+			if((User) session.getAttribute("NewUser") != null){
+				User newUser = (User) session.getAttribute("NewUser");
 		%>
-			<table style="width: 100%">
+			<table>
 				<tr>
 					<td>User:</td>
 					<td><%=newUser.getIdNumber() %></td>
@@ -83,24 +75,15 @@
 				
 			</table>
 		<%
-						
-					}else if(!utils.checkName(name)){
-						out.print("<p style='color:red;'>Invalid name</p>");
-						
-					}else if(!utils.checkContactNumber(contactNumber)){
-						out.print("<p style='color:red;'>Invalid contact number</p>");
-					}
-					
-				}else if(request.getParameter("name") == null){
-					out.print("<p style='color:red;'>Missing name</p>");
-					
-				}else if(request.getParameter("contactNumber")== null){
-					out.print("<p style='color:red;'>Missing contact number</p>");
-					
-				}else if(request.getParameter("address")== null){
-					out.print("<p style='color:red;'>Missing address</p>");
-				}
+				session.removeAttribute("NewUser");
+			}else{
+				String result = (String) session.getAttribute("createResult");
+	            if (result != null) {
+	                out.println(result);
+	                session.removeAttribute("createResult");
+	            }
 			}
+		
 		%>
 	</div>
 </body>

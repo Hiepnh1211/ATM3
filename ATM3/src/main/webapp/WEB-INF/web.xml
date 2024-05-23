@@ -50,13 +50,43 @@
     <url-pattern>/ChangePassword</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
-    <display-name>WithdrawalReport</display-name>
     <servlet-name>WithdrawalReport</servlet-name>
     <servlet-class>AdminServlet.WithdrawalReport</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>WithdrawalReport</servlet-name>
     <url-pattern>/WithdrawalReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DepositReport</servlet-name>
+    <servlet-class>AdminServlet.DepositReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DepositReport</servlet-name>
+    <url-pattern>/DepositReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TransferReport</servlet-name>
+    <servlet-class>AdminServlet.TransferReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransferReport</servlet-name>
+    <url-pattern>/TransferReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CreateUser</servlet-name>
+    <servlet-class>AdminServlet.CreateUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateUser</servlet-name>
+    <url-pattern>/CreateUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Exit</servlet-name>
+    <servlet-class>UserServlet.Exit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Exit</servlet-name>
+    <url-pattern>/Exit</url-pattern>
   </servlet-mapping>
 </web-app>

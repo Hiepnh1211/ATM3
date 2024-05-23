@@ -90,11 +90,6 @@ public class Utilities {
 		}
 	}
 	
-	public String textField(String type, String name) {
-		String textField = "<input type=\""+type+"\" name=\""+name+"\" ><br>\r\n";
-		return textField;
-	}
-	
 	public String option(String function) {
 		String servletName = function.replaceAll("\\s", "");
 		String result = "<form action=\""+ servletName +".jsp\" method =\"post\">\r\n"
@@ -116,26 +111,10 @@ public class Utilities {
 	    return sb.toString();
 	}
 	
-	public String toMenu() {
-		return"<form action=\"UserMenu.jsp\">\r\n"
-				+ "		<input type=\"submit\" value=\"Back\">\r\n"
-				+ "	</form>";
-	}
-	
 	public String exit() {
-		return"<form action=\"IdCheck\" method=\"post\">\r\n"
+		return"<form action=\"Exit\" method=\"post\">\r\n"
 				+ "		<input type=\"submit\" value=\"Exit\">\r\n"
 				+ "	</form>";
-	}
-	
-	public String toAdminMenu() {
-		return"<form action=\"AdminMenu.jsp\">\r\n"
-				+ "		<input type=\"submit\" value=\"Back\">\r\n"
-				+ "	</form>";
-	}
-	
-	public String submit(String label) {
-		return "<input type=\"submit\" value=\""+label+"\">\r\n";
 	}
 	
 	public String transactionIdGenerator(String idNumber, String date, String type) {

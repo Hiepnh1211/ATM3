@@ -27,9 +27,9 @@
     		<tr>
    		</table>
    		<input type="submit" value="Log in"/>
+   		<input type="button" onclick="location.href='IdCheck.jsp';" value="Back">
   </form>
   		<%
-  			out.print(utils.exit());
             String result = (String) session.getAttribute("loginResult");
             if (result != null) {
                 out.println(result);

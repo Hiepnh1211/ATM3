@@ -18,7 +18,6 @@
 		Name: <%= user.getName() %> <br>
 		Balance: <%= user.getBalance() %> <br>
 		Balance Enquiry: <br>
-		<%=utils.toMenu() %>
 		<%
 			out.print(Constants.TABLE_STYLE);
 		%>
@@ -41,12 +40,13 @@
 				</tr>
 			
 			<%
-					if(i == 5){
+					if(i == 4){
 						break;
 					}
 				}
 			%>
 		</table>		
 	</div>
+	<input type="button" onclick="location.href='UserMenu.jsp';" value="Back">
 </body>
 </html>
