@@ -3,6 +3,7 @@ package UserServlet;
 import java.io.IOException;
 
 import Models.User;
+import Services.Constants;
 import Services.UserServices;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -21,15 +22,17 @@ public class PasswordCheck extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
-			
+		User user = (User)session.getAttribute("login");
+		
 		if(password.length() == 4){
 			if(userServices.checkPassword(user.getIdNumber(), password)){
-	  			session.setAttribute("user", user);
-	  			if(user.getRole().equals("User")){
+	  			
+	  			if(user.getRole().equals(Constants.USER_ROLE)){
+	  				session.setAttribute("user", user);
 	  				response.sendRedirect(request.getContextPath() + "/UserMenu.jsp");
 	  				
-	  			}else if(user.getRole().equals("Admin")){
+	  			}else if(user.getRole().equals(Constants.ADMIN_ROLE)){
+	  				session.setAttribute("admin", user);
 	  				response.sendRedirect(request.getContextPath() + "/AdminMenu.jsp");
 	  			}
 	  		}else{

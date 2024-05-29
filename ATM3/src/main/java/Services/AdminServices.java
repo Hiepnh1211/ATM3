@@ -3,7 +3,6 @@ package Services;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,10 @@ import Models.User;
 public class AdminServices {
 	Utilities utils = new Utilities();
 	Connector connector = new Connector();
+	
+	private int numberOfRecord;
+	
+	public int getnumberOfRecord() { return numberOfRecord; } 
 	
 	public User createAccount(String name, String contactNumber, String gender, String address) throws SQLException {
 		Random randomNumber = new Random();
@@ -50,15 +53,20 @@ public class AdminServices {
 	
 	public List<User> accountReport() throws SQLException {
 		List<User> userList = new ArrayList<>();
-		String getAllUser = "SELECT id_number FROM user_info where role = 'User'";
+		String getAllUser = "SELECT SQL_CALC_FOUND_ROWS id_number FROM user_info WHERE role = 'User'";
 		
 		PreparedStatement getAllUserStatement = connector.getConnection().prepareStatement(getAllUser);
 		
-		ResultSet resultSet = getAllUserStatement.executeQuery();
+		try {
+			ResultSet resultSet = getAllUserStatement.executeQuery();
 		
-		while(resultSet.next()) {
-			userList.add(utils.getUserById(resultSet.getString(1)));
-		}
+			while(resultSet.next()) {
+				userList.add(utils.getUserById(resultSet.getString(1)));
+			}
+		
+		}catch (SQLException e) { 
+            e.printStackTrace(); 
+        } 
 		return userList;
 	}
 	

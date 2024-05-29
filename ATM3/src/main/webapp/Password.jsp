@@ -14,7 +14,7 @@
 		Welcome
 		<%
 			Utilities utils = new Utilities();
-			User user = (User)session.getAttribute("user");
+			User user = (User)session.getAttribute("login");
 			out.print(user.getRole() + " " + user.getName());
 		%>
 		
@@ -30,7 +30,7 @@
    		<input type="button" onclick="location.href='IdCheck.jsp';" value="Back">
   </form>
   		<%
-            String result = (String) session.getAttribute("loginResult");
+            String result = (String) session.getAttribute("passwordResult");
             if (result != null) {
                 out.println(result);
             }

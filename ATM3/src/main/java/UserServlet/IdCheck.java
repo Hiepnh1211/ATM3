@@ -23,23 +23,17 @@ public class IdCheck extends HttpServlet{
 		String username = request.getParameter("username");
 		HttpSession session = request.getSession();
     	
-    	if (utils.getUserById(username) != null) {
-        	session.setAttribute("user", utils.getUserById(username));
-        	response.sendRedirect(request.getContextPath() + "/Password.jsp");
-    		
-    	}else if(username.length() < 8){
+    	if(username.length() < 8){
     		session.setAttribute("result", "<p style='color:red;'>Invalid User ID</p>");
     		response.sendRedirect(request.getContextPath() + "/IdCheck.jsp");
     		
-    	}else {
+    	}else if (utils.getUserById(username) == null) {
     		session.setAttribute("result", "<p style='color:red;'>Wrong User ID</p>");
     		response.sendRedirect(request.getContextPath() + "/IdCheck.jsp");
+    	}else {
+    		
+    		session.setAttribute("login", utils.getUserById(username));
+        	response.sendRedirect(request.getContextPath() + "/Password.jsp");
     	}
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.removeAttribute("user");
-		doPost(request, response);
 	}
 }

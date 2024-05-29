@@ -12,7 +12,7 @@
 		<%
 			Utilities utils = new Utilities();
 			User user = (User)session.getAttribute("user");
-			out.print(user.getRole() + " " + user.getIdNumber() + "-" + user.getName());
+				out.print(user.getRole() + " " + user.getIdNumber() + "-" + user.getName());
 		%>
 		
 	<table>
@@ -29,7 +29,6 @@
 			<td> <%= utils.exit() %> </td>
 		</tr>
 	</table>
-		
 	</div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import Models.Transaction;
+import Models.User;
 import Services.AdminServices;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -24,25 +25,25 @@ public class DepositReport extends HttpServlet{
 		AdminServices adminServices = new AdminServices();
 		HttpSession session = request.getSession();
 		
-		if(request.getParameter("date") != null){
-			String date = request.getParameter("date"); 
-			session.setAttribute("date", date);
-			
-			String[] pickedDate = date.split("/");
-			Date checkDate = Date.valueOf(LocalDate.of(Integer.valueOf(pickedDate[2]), Integer.valueOf(pickedDate[0]), Integer.valueOf(pickedDate[1])));
-			try {
-				List<Transaction>depositRecord = adminServices.depositReport(checkDate);
+		User user = (User)session.getAttribute("admin");
+			if(request.getParameter("date") != null){
+				String date = request.getParameter("date"); 
+				session.setAttribute("date", date);
 				
-				if(depositRecord != null) {
-					session.setAttribute("Deposit", depositRecord);
-					response.sendRedirect(request.getContextPath() + "/DepositReport.jsp");
+				String[] pickedDate = date.split("/");
+				Date checkDate = Date.valueOf(LocalDate.of(Integer.valueOf(pickedDate[2]), Integer.valueOf(pickedDate[0]), Integer.valueOf(pickedDate[1])));
+				try {
+					List<Transaction>depositRecord = adminServices.depositReport(checkDate);
+					
+					if(depositRecord != null) {
+						session.setAttribute("Deposit", depositRecord);
+						response.sendRedirect(request.getContextPath() + "/DepositReport.jsp");
+					}
+					
+				} catch (SQLException Error) {
+					session.setAttribute("Empty", "Unable to find any tranasctions");
+		        	
 				}
-				
-				
-			} catch (SQLException Error) {
-				session.setAttribute("Empty", "Unable to find any tranasctions");
-	        	
 			}
-		}
 	}
 }

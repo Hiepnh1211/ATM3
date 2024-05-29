@@ -144,9 +144,6 @@ public class UserServices {
 	}
 	
 	public boolean changePassword(User user, String oldPassword, String newPassword, String confirmNewPassword) throws SQLException {
-		if(!newPassword.equals(confirmNewPassword) || !oldPassword.equals(user.getPin()) || oldPassword.equals("") || newPassword.equals("") || confirmNewPassword.equals("")) {
-			return false;
-		}else {
 			user.setPin(newPassword);
 			String passwordUpdate = "UPDATE user_info SET pin = ? where id_number = ?";
 			PreparedStatement passwordUpdateStatement = connector.getConnection().prepareStatement(passwordUpdate);
@@ -155,7 +152,6 @@ public class UserServices {
 			
 			passwordUpdateStatement.execute();
 			return true;
-		}
 		
 	}
 	

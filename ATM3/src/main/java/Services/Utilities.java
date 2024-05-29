@@ -56,7 +56,7 @@ public class Utilities {
 						resultSet.getString(5), 
 						resultSet.getString(6), 
 						resultSet.getDouble(7), 
-						getTransactionRecord(id),
+						new ArrayList<Transaction>(),
 						resultSet.getString(8));
 				return user;
 			}	

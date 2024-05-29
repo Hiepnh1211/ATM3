@@ -2,7 +2,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.Transaction"%>
+    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.Transaction, Models.User"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +15,7 @@
 
 	<% 
 		Utilities utils = new Utilities();
+		User admin = (User)session.getAttribute("admin");
 	%>
 
 	Withdrawal report
@@ -34,6 +35,7 @@
 			</tr>
 	
 	<%
+	
 		String result = (String)session.getAttribute("Empty");
 		if(result == null){
 			List<Transaction> withdrawalRecord = (List<Transaction>)session.getAttribute("Withdrawal");

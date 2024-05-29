@@ -2,7 +2,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.User, Models.Transfer"%>
+    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.User, Models.Transfer, Models.User"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +15,7 @@
 	<% 
 		Utilities utils = new Utilities();
 		AdminServices adminServices = new AdminServices();
+		User admin = (User)session.getAttribute("admin");
 	%>
 	
 	Transfer report

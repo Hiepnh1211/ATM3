@@ -2,7 +2,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.Transaction"%>
+    pageEncoding="UTF-8" import="Services.*, java.util.List, Models.Transaction, Models.User"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +16,7 @@
 	<% 
 		Utilities utils = new Utilities();
 		AdminServices adminServices = new AdminServices();
+		User admin = (User)session.getAttribute("admin");
 	%>
 
 	Deposit report
@@ -36,6 +37,7 @@
 			</tr>
 	
 	<%
+	if(admin != null){
 		String result = (String)session.getAttribute("Empty");
 		if(result == null){
 			List<Transaction> depositRecord = (List<Transaction>)session.getAttribute("Deposit");
@@ -57,6 +59,7 @@
 		}else{
 			out.print(result);
 		}
+	}
 	%>
 	</table>
 </div>

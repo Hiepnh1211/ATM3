@@ -28,24 +28,29 @@ public class ChangePassword extends HttpServlet{
 		
 		try {
 			if(oldPassword != null){
+				if(newPassword.length() < 4){
+					session.setAttribute("passwordChangeResult", "<p style='color:red;'>new password too short</p>");
+		  	    	response.sendRedirect(request.getContextPath() + "/ChangePassword.jsp");
+					
+				}
+				
 				if(!oldPassword.equals(user.getPin())) {
 					session.setAttribute("passwordChangeResult", "<p style='color:red;'>Invalid password</p>");
 		  	    	response.sendRedirect(request.getContextPath() + "/ChangePassword.jsp");
 					
-				}else if(!newPassword.equals(confirmNewPassword)){
+				}
+				
+				if(!newPassword.equals(confirmNewPassword)){
 					session.setAttribute("passwordChangeResult", "<p style='color:red;'>Unable to confirm new password</p>");
 		  	    	response.sendRedirect(request.getContextPath() + "/ChangePassword.jsp");
 					
-				}else if(newPassword.length() < 4){
-					session.setAttribute("passwordChangeResult", "<p style='color:red;'>new password too short</p>");
-		  	    	response.sendRedirect(request.getContextPath() + "/ChangePassword.jsp");
-					
-				}else{
-					userServices.changePassword(user, oldPassword, newPassword, confirmNewPassword);
-					session.removeAttribute("user");
-					session.setAttribute("result", "<p style='color:green;'>Your password has been changed</p>");
-					response.sendRedirect(request.getContextPath() + "/IdCheck.jsp");
 				}
+				
+				userServices.changePassword(user, oldPassword, newPassword, confirmNewPassword);
+				session.removeAttribute("user");
+				session.setAttribute("result", "<p style='color:green;'>Your password has been changed</p>");
+				response.sendRedirect(request.getContextPath() + "/IdCheck.jsp");
+				
 			}else{
 				session.setAttribute("passwordChangeResult", "<p style='color:red;'>new password too short</p>");
 	  	    	response.sendRedirect(request.getContextPath() + "/ChangePassword.jsp");

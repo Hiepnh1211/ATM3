@@ -12,7 +12,7 @@
 			Utilities utils = new Utilities();
 			UserServices userServices = new UserServices();
 		%>
-		User: <%= user.getIdNumber() %> <br>
+		User: <%= utils.padLeftZeros(user.getIdNumber(), 8) %> <br>
 		Name: <%= user.getName() %> <br>
 		Balance: <div id="output"></div> <br>
 		
@@ -36,6 +36,7 @@
         	if (result != null) {
             	out.println(result);
         	}
+			
 		%>
 		
 		<script>

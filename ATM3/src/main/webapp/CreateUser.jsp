@@ -11,6 +11,7 @@
 	<% 
 		Utilities utils = new Utilities();
 		AdminServices adminServices = new AdminServices();
+		User admin = (User)session.getAttribute("admin");
 	%>
 		Create user
 		<form action="CreateUser" method="post">
@@ -83,7 +84,6 @@
 	                session.removeAttribute("createResult");
 	            }
 			}
-		
 		%>
 	</div>
 </body>

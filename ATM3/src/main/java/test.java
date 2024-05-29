@@ -1,7 +1,9 @@
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
+import Models.User;
 import Services.AdminServices;
 import Services.Constants;
 import Services.UserServices;
@@ -13,12 +15,14 @@ public class test {
 		UserServices userServices = new UserServices();
 		AdminServices adminServices = new AdminServices();
 		
-		try {
-			System.out.println(userServices.checkTransactionLimit("05464045", Constants.FUNCTION_DEPOSIT));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+//		int page = 1;
+//		int recordsPerPage = 5;
+//		try {
+//			List<User> userList = adminServices.accountReport((page-1)*recordsPerPage, recordsPerPage);
+//			System.out.println(userList.size());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }

@@ -11,7 +11,7 @@
 	Welcome
 		<%
 			Utilities utils = new Utilities();
-			User user = (User)session.getAttribute("user");
+			User user = (User)session.getAttribute("admin");
 			out.print(user.getRole() + " " + user.getIdNumber() + "-" + user.getName());
 		%>
 		
@@ -29,7 +29,6 @@
 			<td> <%= utils.exit() %> </td>
 		</tr>
 	</table>
-		
 	</div>
 </body>
 </html>

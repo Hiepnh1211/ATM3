@@ -13,8 +13,9 @@
 	<%
 		Utilities utils = new Utilities();
 		User user = (User)session.getAttribute("user");
-		double balance = user.getBalance();
 		UserServices userServices = new UserServices();
+			double balance = user.getBalance();
+
 	%>
 
 	Withdrawing Money <br>

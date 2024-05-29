@@ -13,6 +13,7 @@
 			User user = (User)session.getAttribute("user");
 			Utilities utils = new Utilities();
 			List<Transaction> transactionRecord = utils.getTransactionRecord(user.getIdNumber());
+			
 		%>
 		User: <%= utils.padLeftZeros(user.getIdNumber(), Constants.ID_NUMBER_LENGTH) %> <br>
 		Name: <%= user.getName() %> <br>
